@@ -1,0 +1,18 @@
+{
+  "name": "painel-estoque",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Painel de estoque por código de barras + consulta da conferência Tally",
+  "main": "server.js",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "migrar": "node scripts/migrar-para-neon.js",
+    "build": "node scripts/montar-site.js"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.1.0"
+  }
+}

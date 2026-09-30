@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conferência Tally</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-modo="nenhum" class="pagina-conferencia pagina-tally">
+
+<header class="topo">
+  <div class="topo-linha">
+    <h1>Conferência Tally</h1>
+    <nav class="navegacao">
+      <a href="/">← Voltar ao estoque</a>
+    </nav>
+
+    <div class="tl-periodo">
+      <input id="inp-de" type="date" aria-label="De">
+      <span class="tl-ate">até</span>
+      <input id="inp-ate" type="date" aria-label="Até">
+      <button id="btn-atualizar" class="tl-botao" type="button" title="Buscar de novo no Tally">⟳ Atualizar</button>
+      <span id="status" class="tl-status"></span>
+    </div>
+  </div>
+</header>
+
+<!-- ------------------------------------------------------------ chave -->
+<section id="area-chave" class="mapa" hidden>
+  <div class="mapa-arquivo">
+    <span class="mapa-nome">Conectar ao Tally</span>
+    <span class="mapa-info">
+      Só precisa fazer uma vez. No Tally: <strong>Settings → API keys → Create API key</strong>, copie e cole aqui.
+    </span>
+  </div>
+  <div class="mapa-campos">
+    <label class="campo">
+      <span>Chave da API</span>
+      <input id="inp-chave" type="password" autocomplete="off" spellcheck="false" placeholder="tly-…">
+    </label>
+    <button id="btn-salvar-chave" class="desfazer botao-acao" type="button">Salvar chave</button>
+  </div>
+</section>
+
+<div id="erro" class="importar-erro tl-erro" hidden></div>
+
+<!-- --------------------------------------------------------- resultado -->
+<section id="area-resultado" hidden>
+
+  <div class="tl-resumo">
+    <div class="tl-resumo-texto">
+      <strong id="r-batem">0</strong> de <strong id="r-total">0</strong> produtos batem com a bipagem
+      <span class="tl-resumo-extra" id="r-extra"></span>
+    </div>
+    <div class="tl-progresso" aria-hidden="true"><div id="r-barra"></div></div>
+  </div>
+
+  <nav class="tl-abas" role="tablist">
+    <button class="tl-aba ativo" data-aba="produtos" type="button" role="tab">
+      Produtos do formulário <span class="tl-aba-n" id="n-produtos">0</span>
+    </button>
+    <button class="tl-aba" data-aba="sem-formulario" type="button" role="tab">
+      Bipados sem formulário <span class="tl-aba-n" id="n-sem-formulario">0</span>
+    </button>
+  </nav>
+
+  <div class="tl-ferramentas">
+    <input id="busca" class="tl-busca" type="search" placeholder="Buscar código, cidade, transportadora…" autocomplete="off" spellcheck="false">
+
+    <div id="filtros-produtos" class="tl-filtros">
+      <div class="tl-segmentos" role="group" aria-label="Situação">
+        <button data-status="todos" type="button" class="ativo">Todos <span id="f-todos"></span></button>
+        <button data-status="bateu" type="button">✓ Recebido <span id="f-bateu"></span></button>
+        <button data-status="nao-bipado" type="button">✗ Não recebido <span id="f-nao-bipado"></span></button>
+        <button data-status="qtd" type="button">⚠ Qtd divergente <span id="f-qtd"></span></button>
+      </div>
+      <select id="sel-transportadora" class="tl-select" aria-label="Transportadora"></select>
+      <select id="sel-tipo" class="tl-select" aria-label="Tipo"></select>
+    </div>
+
+    <div class="tl-ferramentas-dir">
+      <button id="btn-alertas" class="tl-botao tl-botao-alerta" type="button" hidden></button>
+      <button id="btn-exportar" class="tl-botao" type="button">⬇ Exportar CSV</button>
+    </div>
+  </div>
+
+  <div id="avisos" class="avisos tl-avisos" hidden></div>
+
+  <main class="tl-main">
+    <div class="tl-tabela-caixa">
+      <table class="tl-tabela">
+        <thead id="cabecalho"></thead>
+        <tbody id="corpo"></tbody>
+      </table>
+      <p id="vazio" class="vazio" hidden></p>
+    </div>
+    <p id="rodape" class="rodape-lista"></p>
+  </main>
+</section>
+
+<!-- ------------------------------------------------------ painel lateral -->
+<div id="painel-fundo" class="tl-painel-fundo" hidden></div>
+<aside id="painel" class="tl-painel" aria-hidden="true" tabindex="-1">
+  <header class="tl-painel-topo">
+    <div>
+      <div class="tl-painel-rotulo">Produto</div>
+      <div id="painel-codigo" class="tl-painel-codigo"></div>
+    </div>
+    <button id="painel-fechar" class="tl-fechar" type="button" aria-label="Fechar">✕</button>
+  </header>
+  <div id="painel-corpo" class="tl-painel-corpo"></div>
+</aside>
+
+<script src="normalizar.js"></script>
+<script src="tally.js"></script>
+</body>
+</html>

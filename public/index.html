@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel de Estoque</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-modo="nenhum">
+
+<header class="topo">
+  <div class="topo-linha">
+    <h1>Estoque</h1>
+
+    <div class="modos" role="group" aria-label="Modo de leitura">
+      <button id="btn-entrada" class="modo modo-entrada" type="button" aria-pressed="false">
+        <span class="modo-tecla">F2</span>
+        <span class="modo-nome">ENTRADA</span>
+      </button>
+    </div>
+
+    <nav class="navegacao">
+      <a href="/conferencia.html">🔀 Cruzar planilha</a>
+      <a href="/tally.html">📋 Conferir Tally</a>
+    </nav>
+
+    <div class="contadores">
+      <div class="contador">
+        <span class="contador-valor" id="c-guardados">0</span>
+        <span class="contador-rotulo">guardados</span>
+      </div>
+      <div class="contador contador-sessao">
+        <span class="contador-valor" id="c-sessao">0</span>
+        <span class="contador-rotulo">lidos agora</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="faixa" class="faixa faixa-neutra" aria-live="assertive">
+  <div class="faixa-icone" id="faixa-icone">📷</div>
+  <div class="faixa-texto">
+    <div class="faixa-titulo" id="faixa-titulo">Clique em ENTRADA (ou F2) para começar</div>
+    <div class="faixa-codigo" id="faixa-codigo"></div>
+  </div>
+</section>
+
+<div class="barra">
+  <input id="busca" class="busca" type="search" placeholder="Buscar código…  (Esc volta a ler)" autocomplete="off" spellcheck="false">
+
+  <button id="btn-desfazer" class="desfazer" type="button" disabled>
+    ↶ Desfazer última leitura <kbd>Ctrl+Z</kbd>
+  </button>
+</div>
+
+<main>
+  <table class="tabela">
+    <thead>
+      <tr>
+        <th class="col-codigo">Código</th>
+        <th class="col-data">Entrada</th>
+        <th class="col-acoes"><span class="oculto-visual">Ações</span></th>
+      </tr>
+    </thead>
+    <tbody id="corpo-tabela"></tbody>
+  </table>
+  <p id="vazio" class="vazio" hidden></p>
+  <p id="rodape-lista" class="rodape-lista"></p>
+</main>
+
+<div id="dica-scanner" class="dica">
+  Leitura contínua ativa — pode escanear em sequência, sem clicar em nada.
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

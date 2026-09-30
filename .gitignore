@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+*.db
+*.db-wal
+*.db-shm
+node_modules/
+site/
+.vercel/
+tally.json
+tally-*.json

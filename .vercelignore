@@ -1,0 +1,13 @@
+# Nada disto vai para a Vercel: segredos, o banco antigo e dados locais.
+.env
+.env.*
+tally.json
+tally-*.json
+*.db
+*.db-wal
+*.db-shm
+node_modules/
+site/
+
+*.bat
+*.vbs

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conferência com planilha</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔀</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-modo="nenhum" class="pagina-conferencia">
+
+<header class="topo">
+  <div class="topo-linha">
+    <h1>Conferência</h1>
+    <nav class="navegacao">
+      <a href="/">← Voltar ao estoque</a>
+    </nav>
+    <div class="contadores">
+      <div class="contador">
+        <span class="contador-valor" id="c-estoque">0</span>
+        <span class="contador-rotulo">no estoque</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ---------------------------------------------------------- importar -->
+<section id="area-importar" class="importar">
+  <div id="alvo" class="alvo" tabindex="0">
+    <div class="alvo-icone">📄</div>
+    <div class="alvo-titulo">Arraste aqui a planilha do Power BI</div>
+    <div class="alvo-sub">
+      arquivo <strong>.csv</strong> ou <strong>.xlsx</strong> &nbsp;·&nbsp;
+      ou <button type="button" id="btn-escolher" class="link">escolha o arquivo</button> &nbsp;·&nbsp;
+      ou <strong>cole aqui (Ctrl+V)</strong> o que copiou do Excel
+    </div>
+    <input type="file" id="arquivo" accept=".csv,.txt,.tsv,.xlsx" hidden>
+  </div>
+  <div id="importar-erro" class="importar-erro" hidden></div>
+</section>
+
+<!-- ------------------------------------------------------------ mapa -->
+<section id="area-mapa" class="mapa" hidden>
+  <div class="mapa-arquivo">
+    <span class="mapa-nome" id="mapa-nome"></span>
+    <span class="mapa-info" id="mapa-info"></span>
+    <button type="button" id="btn-trocar" class="link">trocar planilha</button>
+  </div>
+
+  <div class="mapa-campos">
+    <label class="campo" id="campo-aba" hidden>
+      <span>Aba</span>
+      <select id="sel-aba"></select>
+    </label>
+
+    <label class="campo">
+      <span>Coluna do código</span>
+      <select id="sel-codigo"></select>
+      <small id="dica-codigo"></small>
+    </label>
+
+    <label class="campo">
+      <span>Coluna da tratativa</span>
+      <select id="sel-tratativa"></select>
+      <small id="dica-tratativa"></small>
+    </label>
+
+    <label class="campo campo-caixa">
+      <input type="checkbox" id="chk-zeros">
+      <span>Ignorar zeros à esquerda ao comparar</span>
+    </label>
+  </div>
+
+  <div id="avisos" class="avisos"></div>
+</section>
+
+<!-- --------------------------------------------------------- resultado -->
+<section id="area-resultado" hidden>
+  <div class="grupos" role="tablist">
+    <button class="grupo ativo" data-grupo="ambos" type="button">
+      <span class="grupo-n" id="n-ambos">0</span>
+      <span class="grupo-rot">No PBI e no estoque</span>
+    </button>
+    <button class="grupo" data-grupo="so-pbi" type="button">
+      <span class="grupo-n" id="n-so-pbi">0</span>
+      <span class="grupo-rot">No PBI, fora do estoque</span>
+    </button>
+    <button class="grupo" data-grupo="so-estoque" type="button">
+      <span class="grupo-n" id="n-so-estoque">0</span>
+      <span class="grupo-rot">No estoque, fora do PBI</span>
+    </button>
+  </div>
+
+  <div id="resumo" class="resumo"></div>
+
+  <div class="barra">
+    <input id="busca" class="busca" type="search" placeholder="Buscar código…" autocomplete="off" spellcheck="false">
+    <label class="campo campo-caixa">
+      <span>Ordenar por</span>
+      <select id="sel-ordem">
+        <option value="tratativa">Tratativa</option>
+        <option value="entrada">Data de entrada</option>
+        <option value="codigo">Código</option>
+      </select>
+    </label>
+    <button id="btn-exportar" class="desfazer" type="button">⬇ Exportar CSV</button>
+  </div>
+
+  <main>
+    <div class="rolagem">
+      <table class="tabela" id="tabela">
+        <thead id="cabecalho"></thead>
+        <tbody id="corpo"></tbody>
+      </table>
+    </div>
+    <p id="vazio" class="vazio" hidden></p>
+    <p id="rodape" class="rodape-lista"></p>
+  </main>
+</section>
+
+<script src="normalizar.js"></script>
+<script src="conferencia.js"></script>
+</body>
+</html>
