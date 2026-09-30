@@ -1,4 +1,4 @@
-# painel-estoque
+# estoque
 
 A small web app for tracking parcels that come back to a last-mile delivery base. Operators scan returned parcels with a USB barcode reader, and the app cross-checks those scans against what drivers reported in a form and against an exported BI spreadsheet.
 
@@ -46,18 +46,3 @@ scripts/          Vercel build and SQLite → Postgres migration
 docs/USER-GUIDE.md  end-user guide (Portuguese)
 ```
 
-## Running
-
-Requires Node 22+ and a Neon Postgres database (queries go over Neon's HTTP driver).
-
-```bash
-cp .env.example .env        # DATABASE_URL, TALLY_API_KEY, TALLY_FORM_ID
-npm install
-npm start                   # panel on :3030, read-only view on :3051
-```
-
-On Windows, `iniciar.bat` starts the server in the background and opens the browser.
-
-## Screenshots
-
-<!-- TODO: add docs/img/scan.png (scan panel with fake codes) and docs/img/tally.png (cross-check with fake data) -->
